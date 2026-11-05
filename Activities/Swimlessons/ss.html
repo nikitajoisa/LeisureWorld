@@ -18,30 +18,30 @@
 
 <!-- NAV (shared across all pages) -->
 <nav id="nav">
-  <a href="../index.html" class="logo"><img src="../../Images/logo.png" alt="LeisureWorld Cork" class="logo-img"/></a>
+  <a href="../../index.html" class="logo"><img src="../../Images/logo.png" alt="LeisureWorld Cork" class="logo-img"/></a>
   <ul class="nav-links">
-    <li><a href="../index.html#about">About</a></li>
-    <li><a href="../index.html#locations">Centres</a></li>
+    <li><a href="../../index.html#about">About</a></li>
+    <li><a href="../../index.html#locations">Centres</a></li>
     <li><a href="../../activities.html">Activities</a></li>
-    <li><a href="../pricing.html">Pricing</a></li>
-    <li><a href="../contact.html">Contact</a></li>
+    <li><a href="../../pricing.html">Pricing</a></li>
+    <li><a href="../../contact.html">Contact</a></li>
     <li><a href="https://leisureworldcork.legendonlineservices.co.uk/enterprise/account/login" target="_blank" class="nav-cta">Sign In / Book</a></li>
   </ul>
   <button class="ham" id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 <div class="mob" id="mob">
   <button class="mob-close" id="mob-close">✕</button>
-  <a href="../index.html#about" class="mlink">About</a>
-  <a href="../index.html#locations" class="mlink">Our Centres</a>
+  <a href="../../index.html#about" class="mlink">About</a>
+  <a href="../../index.html#locations" class="mlink">Our Centres</a>
   <a href="../../activities.html" class="mlink">Activities</a>
-  <a href="../pricing.html" class="mlink">Pricing</a>
-  <a href="../contact.html" class="mlink">Contact</a>
+  <a href="../../pricing.html" class="mlink">Pricing</a>
+  <a href="../../contact.html" class="mlink">Contact</a>
   <a href="https://leisureworldcork.legendonlineservices.co.uk/enterprise/onlinesignup" target="_blank" style="color:var(--pool)">Join Now →</a>
 </div>
 
 <!-- HERO -->
 <section class="ss-hero">
-  <canvas class="hero-bubbles" id="bubbleCanvas"></canvas>
+  <canvas class="hero-bubbles" id="bubbleCanvas" data-color="34,211,238"></canvas>
   <div class="page-hero-bg" aria-hidden="true">
     <img src="../../Images/ssbg.png" alt="">
   </div>
@@ -298,7 +298,7 @@
 <footer>
   <div class="footer-top">
     <div class="footer-brand">
-      <a href="../index.html" class="logo"><img src="../../Images/logo.png" alt="LeisureWorld Cork" class="logo-img"/></a>
+      <a href="../../index.html" class="logo"><img src="../../Images/logo.png" alt="LeisureWorld Cork" class="logo-img"/></a>
       <p class="footer-tagline">Operated by LW Management on behalf of Cork City Council. Three centres serving Cork since 1997.</p>
       <div class="socials">
         <a href="https://www.facebook.com/LeisureWorldCork" target="_blank" title="Facebook">
@@ -312,10 +312,10 @@
     <div class="footer-col">
       <h5>Centres</h5>
       <ul>
-        <li><a href="../Centres/bishopstown.html" target="_blank">Bishopstown</a></li>
-        <li><a href="../Centres/churchfield.html" target="_blank">Churchfield</a></li>
-        <li><a href="../Centres/douglas.html" target="_blank">Douglas</a></li>
-        <li><a href="#hours" target="_blank">Opening Hours</a></li>
+        <li><a href="../../Centres/bishopstown.html" target="_blank">Bishopstown</a></li>
+        <li><a href="../../Centres/churchfield.html" target="_blank">Churchfield</a></li>
+        <li><a href="../../Centres/douglas.html" target="_blank">Douglas</a></li>
+        <li><a href="../../index.html#hours" target="_blank">Opening Hours</a></li>
       </ul>
     </div>
     <div class="footer-col">
@@ -332,11 +332,11 @@
     <div class="footer-col">
       <h5>More</h5>
       <ul>
-        <li><a href="../pricing.html" target="_blank">Prices</a></li>
+        <li><a href="../../pricing.html" target="_blank">Prices</a></li>
         <li><a href="https://leisureworld-cork.vouchercart.com/app" target="_blank">Gift Vouchers</a></li>
-        <li><a href="../about.html" target="_blank">About Us</a></li>
+        <li><a href="../../about.html" target="_blank">About Us</a></li>
         <li><a href="https://www.leisureworldcork.com/category/news/" target="_blank">News</a></li>
-        <li><a href="../careers.html" target="_blank">Careers</a></li>
+        <li><a href="../../careers.html" target="_blank">Careers</a></li>
         <li><a href="https://www.leisureworldcork.com/accessibility/" target="_blank">Accessibility</a></li>
       </ul>
     </div>
@@ -346,145 +346,10 @@
     <div class="footer-legal">
       <a href="https://www.leisureworldcork.com/privacy-policy/" target="_blank">Privacy Policy</a>
       <a href="https://www.leisureworldcork.com/cookies-policy/" target="_blank">Cookie Policy</a>
-      <a href="../centre-policies.html" target="_blank">Centre Policies</a>
+      <a href="../../centre-policies.html" target="_blank">Centre Policies</a>
     </div>
   </div>
 </footer>
 <script src="../../script.js" defer></script>
-
-<script>
-/* ══════════════════════════════════════════
-   REUSABLE BUBBLE ENGINE
-   Call initBubbleCanvas(canvas, color, count)
-   color = "r,g,b" string e.g. "255,107,53"
-   ══════════════════════════════════════════ */
-function initBubbleCanvas(canvas, color, count) {
-  const ctx = canvas.getContext('2d');
-  let bubbles = [];
-
-  function resize() {
-    canvas.width  = canvas.parentElement.offsetWidth  || canvas.offsetWidth;
-    canvas.height = canvas.parentElement.offsetHeight || canvas.offsetHeight;
-  }
-
-  function makeBubble(spreadY) {
-    return {
-      x: Math.random() * canvas.width,
-      y: spreadY ? Math.random() * canvas.height : canvas.height + Math.random() * 80,
-      r: 3 + Math.random() * 20,
-      speed: 0.25 + Math.random() * 0.6,
-      drift: (Math.random() - 0.5) * 0.35,
-      alpha: 0.05 + Math.random() * 0.12,
-      wobble: Math.random() * Math.PI * 2,
-      wobbleSpeed: 0.008 + Math.random() * 0.018
-    };
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    bubbles.forEach(b => {
-      b.wobble += b.wobbleSpeed;
-      b.x += b.drift + Math.sin(b.wobble) * 0.25;
-      b.y -= b.speed;
-      if (b.y + b.r < 0) Object.assign(b, makeBubble(false));
-
-      /* ring */
-      ctx.beginPath();
-      ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(${color},${b.alpha * 2})`;
-      ctx.lineWidth = 1;
-      ctx.stroke();
-
-      /* glint */
-      ctx.beginPath();
-      ctx.arc(b.x - b.r * 0.28, b.y - b.r * 0.28, b.r * 0.18, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255,255,255,${b.alpha})`;
-      ctx.fill();
-    });
-    requestAnimationFrame(draw);
-  }
-
-  resize();
-  bubbles = Array.from({ length: count }, () => makeBubble(true));
-  window.addEventListener('resize', resize);
-  draw();
-}
-
-/* ── HERO BUBBLES ── */
-initBubbleCanvas(
-  document.getElementById('bubbleCanvas'),
-  '34,211,238',
-  35
-);
-
-/* ── CARD BUBBLES — one canvas per level body ── */
-document.querySelectorAll('.card-bubbles').forEach(canvas => {
-  const color = canvas.dataset.color;
-  initBubbleCanvas(canvas, color, 18);
-});
-
-/* ── SCROLL REVEAL for level cards ── */
-const cards = document.querySelectorAll('.level-card');
-const io = new IntersectionObserver((entries) => {
-  entries.forEach((e, i) => {
-    if (e.isIntersecting) {
-      setTimeout(() => e.target.classList.add('visible'), i * 120);
-      io.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.1 });
-cards.forEach(c => io.observe(c));
-
-/* ── STAT COUNT-UP on scroll ── */
-const statCounts = document.querySelectorAll('.stat-count');
-const statObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) return;
-    const el = entry.target;
-    const target = parseInt(el.dataset.target);
-    const duration = 1200;
-    const start = performance.now();
-    function tick(now) {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
-      const ease = 1 - Math.pow(1 - progress, 3);
-      el.textContent = Math.round(ease * target);
-      if (progress < 1) requestAnimationFrame(tick);
-      else el.textContent = target;
-    }
-    requestAnimationFrame(tick);
-    statObserver.unobserve(el);
-  });
-}, { threshold: 0.5 });
-statCounts.forEach(el => statObserver.observe(el));
-
-/* ── LEVEL IMAGE click pop ── */
-document.querySelectorAll('.level-img').forEach(img => {
-  img.addEventListener('click', () => {
-    img.classList.remove('popped');
-    void img.offsetWidth; /* reflow to restart */
-    img.classList.add('popped');
-    img.addEventListener('animationend', () => img.classList.remove('popped'), { once: true });
-  });
-});
-
-
-document.querySelectorAll('.faq-question').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const item = btn.closest('.faq-item');
-    const isOpen = item.classList.contains('open');
-    document.querySelectorAll('.faq-item.open').forEach(el => {
-      el.classList.remove('open');
-      el.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
-      el.querySelector('.faq-icon').textContent = '+';
-    });
-    if (!isOpen) {
-      item.classList.add('open');
-      btn.setAttribute('aria-expanded', 'true');
-      btn.querySelector('.faq-icon').textContent = '−';
-    }
-  });
-});
-</script>
 </body>
 </html>

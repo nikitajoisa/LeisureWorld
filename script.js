@@ -229,6 +229,140 @@
   };
 
 
+  /* ── Reusable bubble canvas engine ──────────────────────────────────────
+     Draws softly rising bubbles inside a <canvas>. color = "r,g,b" string,
+     e.g. "255,107,53". Used by initSwimLevelCards() below, and exposed on
+     `window` in case a page ever needs to call it directly. */
+  function initBubbleCanvas(canvas, color, count) {
+    const ctx = canvas.getContext('2d');
+    let bubbles = [];
+
+    function resize() {
+      canvas.width  = canvas.parentElement.offsetWidth  || canvas.offsetWidth;
+      canvas.height = canvas.parentElement.offsetHeight || canvas.offsetHeight;
+    }
+
+    function makeBubble(spreadY) {
+      return {
+        x: Math.random() * canvas.width,
+        y: spreadY ? Math.random() * canvas.height : canvas.height + Math.random() * 80,
+        r: 3 + Math.random() * 20,
+        speed: 0.25 + Math.random() * 0.6,
+        drift: (Math.random() - 0.5) * 0.35,
+        alpha: 0.05 + Math.random() * 0.12,
+        wobble: Math.random() * Math.PI * 2,
+        wobbleSpeed: 0.008 + Math.random() * 0.018
+      };
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      bubbles.forEach((b) => {
+        b.wobble += b.wobbleSpeed;
+        b.x += b.drift + Math.sin(b.wobble) * 0.25;
+        b.y -= b.speed;
+        if (b.y + b.r < 0) Object.assign(b, makeBubble(false));
+
+        ctx.beginPath();
+        ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(${color},${b.alpha * 2})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(b.x - b.r * 0.28, b.y - b.r * 0.28, b.r * 0.18, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${b.alpha})`;
+        ctx.fill();
+      });
+      requestAnimationFrame(draw);
+    }
+
+    resize();
+    bubbles = Array.from({ length: count }, () => makeBubble(true));
+    window.addEventListener('resize', resize);
+    draw();
+  }
+  window.initBubbleCanvas = initBubbleCanvas;
+
+
+  /* ── Swim-lesson level-card pages ────────────────────────────────────────
+     Shared by Activities/Swimlessons/{rl,ss,swimschool,wsf}.html: the hero
+     + per-card bubble canvases, level-card scroll reveal, the stat
+     count-up, the level-image click "pop", and the FAQ accordion. Every
+     selector here is unique to those pages, so this is a no-op elsewhere. */
+  function initSwimLevelCards() {
+    const hero = document.getElementById('bubbleCanvas');
+    if (hero) initBubbleCanvas(hero, hero.dataset.color || '34,211,238', 35);
+
+    document.querySelectorAll('.card-bubbles').forEach((canvas) => {
+      initBubbleCanvas(canvas, canvas.dataset.color, 18);
+    });
+
+    const cards = document.querySelectorAll('.level-card');
+    if (cards.length) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e, i) => {
+          if (e.isIntersecting) {
+            setTimeout(() => e.target.classList.add('visible'), i * 120);
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      cards.forEach((c) => io.observe(c));
+    }
+
+    const statCounts = document.querySelectorAll('.stat-count');
+    if (statCounts.length) {
+      const statObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target;
+          const target = parseInt(el.dataset.target);
+          const duration = 1200;
+          const start = performance.now();
+          function tick(now) {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            const ease = 1 - Math.pow(1 - progress, 3);
+            el.textContent = Math.round(ease * target);
+            if (progress < 1) requestAnimationFrame(tick);
+            else el.textContent = target;
+          }
+          requestAnimationFrame(tick);
+          statObserver.unobserve(el);
+        });
+      }, { threshold: 0.5 });
+      statCounts.forEach((el) => statObserver.observe(el));
+    }
+
+    document.querySelectorAll('.level-img').forEach((img) => {
+      img.addEventListener('click', () => {
+        img.classList.remove('popped');
+        void img.offsetWidth; /* reflow to restart */
+        img.classList.add('popped');
+        img.addEventListener('animationend', () => img.classList.remove('popped'), { once: true });
+      });
+    });
+
+    document.querySelectorAll('.faq-question').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach((el) => {
+          el.classList.remove('open');
+          el.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+          el.querySelector('.faq-icon').textContent = '+';
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+          btn.querySelector('.faq-icon').textContent = '−';
+        }
+      });
+    });
+  }
+
+
   /* ── Boot ──────────────────────────────────────────────────────────────
      Run everything once the DOM is parsed. We run the universal pieces on
      every page; page-specific helpers (showTab, accToggle, handleForm)
@@ -240,6 +374,7 @@
     initScrollReveal();
     initDocScrollspy();
     initChatStatus();
+    initSwimLevelCards();
   }
 
   if (document.readyState === 'loading') {
