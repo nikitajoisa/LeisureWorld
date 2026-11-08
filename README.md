@@ -2,7 +2,7 @@
 
 **Status:** In progress 
 
-A full digital platform rebuild for LeisureWorld, a multi-location leisure and swim centre business in Cork, Ireland. Independently diagnosed operational gaps across 3 business locations, then pitched and delivered this rebuild to management, covering the public-facing site, a planned self-serve availability system, and a structured enquiry escalation pipeline.
+A full digital platform rebuild for LeisureWorld, a multi-location leisure and swim centre business in Cork, Ireland. Independently diagnosed operational gaps across 3 business locations, then pitched and built this rebuild to management, covering the public-facing site, a planned self-serve availability system, and a structured enquiry escalation pipeline.
 
 ## What this solves
 
