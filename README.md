@@ -8,7 +8,7 @@ A full digital platform rebuild for LeisureWorld, a multi-location leisure and s
 
 LeisureWorld previously handled centre information, class schedules, and customer enquiries manually across front desk, membership, and coaching teams. This project:
 
-- Cuts manual enquiry volume with a **self-serve, real-time availability system**, reducing customer support load
+- Designed to reduce repeat phone and desk enquiries by putting timetables, swim levels and pricing in one place per audience (availability system planned)
 - Replaces manual email triage with a **structured PHP-based escalation pipeline** for enquiries and contact form submissions
 - Consolidates centre information, class offerings, membership, and policy content into one modern, maintainable site
 
