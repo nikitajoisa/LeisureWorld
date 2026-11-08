@@ -4992,26 +4992,6 @@ footer {
 }
 .faq-item.open .faq-answer { max-height: 300px; }
 
-
-/* ============================================================
-   WATER SAFETY & FUN — Responsive overrides
-   ============================================================ */
-
-@media (max-width: 900px) {
-  .wsf-hero   { padding: 6rem 2rem 5rem; }
-  .wsf-about  { padding: 5rem 2rem; }
-  .wsf-progression { padding: 5rem 2rem; }
-  .wsf-cta    { padding: 4rem 2rem; }
-  .wsf-cta-inner { grid-template-columns: 1fr; gap: 2rem; }
-  .wsf-faq    { padding: 4rem 2rem; }
-  .about-body { grid-template-columns: 1fr; gap: 2rem; }
-  .levels     { padding: 4rem 2rem; }
-  .levels-header { flex-direction: column; gap: 1rem; }
-  .level-card { grid-template-columns: 1fr; }
-  .prog-track::before { display: none; }
-  .prog-track { flex-wrap: wrap; justify-content: center; gap: 1.5rem; }
-}
-
 /* hero desc — renamed from .hero-desc to avoid conflict */
 .wsf-desc {
   font-size: 1.1rem;
